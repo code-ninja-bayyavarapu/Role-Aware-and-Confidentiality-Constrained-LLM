@@ -33,9 +33,10 @@ def load_nq(config: dict) -> list:
         return []
     if hf_datasets is not None:
         try:
+            # NQ Open: google-research-datasets/nq_open (free; use HF_TOKEN for higher rate limits)
             ds = hf_datasets.load_dataset(
-                "natural_questions_open", "default", split="train",
-                trust_remote_code=True, token=_hf_token()
+                "google-research-datasets/nq_open", split="train",
+                token=_hf_token()
             )
             rng = random.Random(seed)
             indices = rng.sample(range(len(ds)), min(n_samples, len(ds)))
@@ -80,19 +81,21 @@ def load_enron(config: dict) -> list:
         return [{"text": str(row[text_col]), "doc_id": f"enron_{i}"} for i, row in df.iterrows()]
     if hf_datasets is not None:
         try:
+            # Enron-style emails (free; use HF_TOKEN for higher rate limits)
             ds = hf_datasets.load_dataset(
-                "brianray/enron", split="train",
-                trust_remote_code=True, token=_hf_token()
+                "LLM-PBE/enron-email", split="train",
+                token=_hf_token()
             )
             rng = random.Random(seed)
-            indices = rng.sample(range(len(ds)), min(n_samples, len(ds)))
+            n_avail = min(n_samples, len(ds))
+            indices = rng.sample(range(len(ds)), n_avail) if len(ds) > n_avail else list(range(n_avail))
             out = []
-            for i in indices:
+            for idx, i in enumerate(indices):
                 row = ds[int(i)]
-                text = row.get("body", row.get("text", row.get("content", str(row))))
+                text = row.get("body", row.get("text", row.get("content", row.get("message", str(row)))))
                 if isinstance(text, list):
                     text = " ".join(str(x) for x in text)
-                out.append({"text": str(text)[:5000], "doc_id": f"enron_{i}"})
+                out.append({"text": str(text)[:5000], "doc_id": f"enron_{idx}"})
             return out
         except Exception as e:
             print(f"[load_data] Enron load failed: {e}. Using synthetic fallback.")
