@@ -1,0 +1,37 @@
+# Markdown — do not check in; you add your own if desired
+*.md
+
+# IEEE paper and LaTeX
+main.tex
+main.pdf
+idea.txt
+compile.bat
+main.log
+main.aux
+main.out
+main.fls
+main.fdb_latexmk
+main.synctex.gz
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Experiment outputs (large)
+experiments/outputs/raw/
+experiments/outputs/logs/
+*.zip
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~

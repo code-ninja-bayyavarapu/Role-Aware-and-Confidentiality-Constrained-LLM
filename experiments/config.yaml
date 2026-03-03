@@ -1,0 +1,15 @@
+model_name: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+max_new_tokens: 128
+temperature: 0.2
+do_sample: false
+seed: 42
+k_runs: 3
+nq_samples: 400
+enron_samples: 1500
+top_k: 3
+tenants: 3
+roles: [analyst, support, engineer]
+clearances: [Public, Internal, Confidential, Restricted]
+output_dir: "experiments/outputs"
+enron_csv_path: null
+csv_text_column: "text"
