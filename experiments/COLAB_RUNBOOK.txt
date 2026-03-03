@@ -1,0 +1,30 @@
+# Colab: run experiments and get results
+
+## One-click open in Colab
+
+Open this link (Colab will load the notebook from GitHub):
+
+**https://colab.research.google.com/github/code-ninja-bayyavarapu/Role-Aware-and-Confidentiality-Constrained-LLM/blob/main/experiments/colab_run_experiments.ipynb**
+
+## Steps (do in order)
+
+1. **Set GPU or TPU**  
+   Menu **Runtime** → **Change runtime type** → **Hardware accelerator**: **GPU** (T4) or **TPU** (e.g. v5e-1) → **Save**.
+
+2. **Run all cells**  
+   **Runtime** → **Run all** (or run each cell with Shift+Enter).  
+   - Cell 4 clones the repo (Option A).  
+   - Cell 7 runs `experiments/run_experiments.py --quick` (about 30–60 min on GPU/TPU).
+
+3. **Download results**  
+   The last cell zips `experiments/outputs/` and downloads **experiment_results.zip**.  
+   Unzip it and copy back into your local project if you want:
+   - `experiments/outputs/metrics/results.csv`
+   - `experiments/outputs/metrics/summary.json`
+   - (Optional) updated `main.tex` from the zip if you need the auto-updated tables.
+
+## If something fails
+
+- **No GPU/TPU:** Set runtime type to GPU or TPU and re-run from the top.
+- **Clone error:** Repo is public; if it still fails, try Option B (upload a zip of your project).
+- **Out of memory:** In Colab, use **Runtime** → **Run all** and avoid opening too many tabs.
